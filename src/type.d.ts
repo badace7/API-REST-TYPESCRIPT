@@ -1,4 +1,5 @@
 type Parkings = Array<Parking>; 
+
 type Parking = {
     id: number,
     name: string,
