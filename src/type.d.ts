@@ -1,3 +1,4 @@
+
 type Parkings = Array<Parking>; 
 
 type Parking = {
@@ -6,3 +7,6 @@ type Parking = {
     type: string,
     city: string
 };
+
+
+
