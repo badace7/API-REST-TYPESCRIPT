@@ -43,17 +43,27 @@ app.post('/parkings', async (req: Request, res: Response) => {
 
 app.put('/parkings/:id', async (req: Request, res: Response) => {
    
-        const id: number = parseInt(req.params.id);
-        const parking: Parking | undefined = await parkings.find(parking => parking.id === id);
+    
+            try {
 
-        if (parking) { 
+                const id: number = parseInt(req.params.id);
+                const parking: Parking | undefined = await parkings.find(parking => parking.id === id);
 
-            parking.name = req.body.name,
-            parking.city = req.body.city,
-            parking.type = req.body.type,
-            res.status(200).json(parking);
+                if (parking) {
 
-        }
+                    parking.name = req.body.name,
+                    parking.city = req.body.city,
+                    parking.type = req.body.type,
+                    res.status(200).json(parking);
+                }
+
+            } catch (err) {
+
+                console.log(err);
+                throw err;
+
+            }
+        
 
 });
 
