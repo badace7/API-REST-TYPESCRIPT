@@ -5,8 +5,9 @@ import express, {Application,Response, Request} from 'express';
 const app: Application = express();
 
 // Import database connection 
-import { database } from './db/dbConnection';
-const sequelizeConnect = database.sequelize;
+// import { database } from '../db/dbConnection';
+// const sequelizeConnect = database.sequelize;
+import { sequelize } from '../db/models/index';
 const parkings: Parkings = require('../parkings.json');
 const reservations: Reservations = require('../reservations.json');
 // port runtime
@@ -25,7 +26,7 @@ app.use(express.urlencoded({extended: true}));
 
 // Authentification and insertion of JSON DATA
 try {
-    sequelizeConnect.authenticate();
+    sequelize.authenticate();
     console.log('Connecté à la base de données MySQL !');
 } catch (err) {
     console.error('Impossible de se connecter, erreur suivante: ', err);
