@@ -27,9 +27,9 @@ const sequelize = new Sequelize("parkingReservation", "root", "Root?P5w?", {
 // Authentification and insertion of JSON DATA
 try {
     sequelize.authenticate();
-    parkings.forEach(parking => {
-       sequelize.query(`insert INTO PARKINGS (parking_name, parking_type, parking_city) values ('${parking.name}', '${parking.type}', '${parking.city}');`); 
-    });
+    // reservations.forEach( reservation => {
+    //    sequelize.query(`insert INTO RESERVATIONS (parking_id, reservation_parking, reservation_city, reservation_client, reservation_vehicle, reservation_plate, reservation_checkin, reservation_checkout) values ('${reservation.parkingId}', '${reservation.parking}', '${reservation.city}', '${reservation.clientName}', '${reservation.vehicle}', '${reservation.licensePlate}', '${reservation.checkin}', '${reservation.checkout}');`); 
+    // });
     console.log('Connecté à la base de données MySQL !');
 } catch (err) {
     console.error('Impossible de se connecter, erreur suivante: ', err);
@@ -128,7 +128,7 @@ app.delete('/parkings/:id', async (req: Request, res: Response) => {
         const id: number = parseInt(req.params.id);
         const parking: Parking | undefined = await parkings.find(parking => parking.id === id);    
 
-        if (parking) { ;
+        if (parking) { 
 
             parkings.splice(parkings.indexOf(parking), 1);
             res.status(200).json(parking);
