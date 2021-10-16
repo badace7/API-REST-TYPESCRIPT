@@ -4,10 +4,11 @@ import express, {Application,Response, Request} from 'express';
 // import express
 const app: Application = express();
 
-// import data in JSON
+// Import database connection 
+import { database } from './db/dbConnection';
+const sequelizeConnect = database.sequelize;
 const parkings: Parkings = require('../parkings.json');
 const reservations: Reservations = require('../reservations.json');
-
 // port runtime
 const port: number = 8080;
 
@@ -15,21 +16,16 @@ const port: number = 8080;
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-// ORM for mysql
-const { Sequelize } = require('sequelize');
 
-// mySQL connection with Sequelize ORM
-const sequelize = new Sequelize("parkingReservation", "root", "Root?P5w?", {
-    dialect: "mysql",
-    host: "localhost"
-});
+
+
+
+
+
 
 // Authentification and insertion of JSON DATA
 try {
-    sequelize.authenticate();
-    // reservations.forEach( reservation => {
-    //    sequelize.query(`insert INTO RESERVATIONS (parking_id, reservation_parking, reservation_city, reservation_client, reservation_vehicle, reservation_plate, reservation_checkin, reservation_checkout) values ('${reservation.parkingId}', '${reservation.parking}', '${reservation.city}', '${reservation.clientName}', '${reservation.vehicle}', '${reservation.licensePlate}', '${reservation.checkin}', '${reservation.checkout}');`); 
-    // });
+    sequelizeConnect.authenticate();
     console.log('Connecté à la base de données MySQL !');
 } catch (err) {
     console.error('Impossible de se connecter, erreur suivante: ', err);
