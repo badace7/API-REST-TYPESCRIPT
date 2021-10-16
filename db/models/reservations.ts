@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from 'sequelize';
-import { sequelize } from '.';
+import { sequelize } from './init';
 import Parking from './parkings';
 
 interface ReservationAttributes{

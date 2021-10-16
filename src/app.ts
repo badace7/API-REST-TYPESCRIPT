@@ -7,7 +7,7 @@ const app: Application = express();
 // Import database connection 
 // import { database } from '../db/dbConnection';
 // const sequelizeConnect = database.sequelize;
-import { sequelize } from '../db/models/index';
+import { sequelize } from '../db/models/init';
 const parkings: Parkings = require('../parkings.json');
 const reservations: Reservations = require('../reservations.json');
 // port runtime
