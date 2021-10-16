@@ -1,9 +1,8 @@
 // import type of Response & Request
-import {Response, Request} from 'express';
+import express, {Application,Response, Request} from 'express';
 
 // import express
-const express = require('express');
-const app = express();
+const app: Application = express();
 
 // import data in JSON
 const parkings: Parkings = require('../parkings.json');
@@ -12,8 +11,9 @@ const reservations: Reservations = require('../reservations.json');
 // port runtime
 const port: number = 8080;
 
-// middleware JSON
+// Body parsing Middleware  
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 // ORM for mysql
 const { Sequelize } = require('sequelize');
@@ -257,7 +257,14 @@ app.post('/parkings/:id/reservations', async (req: Request, res: Response) => {
     }   
 });
 
+try {
 
-app.listen(port, () => {
-       console.log('serveur à l\'écoute');
-});
+    app.listen(port, () => {
+        console.log('serveur à l\'écoute');
+    });
+
+} catch (err) {
+
+    console.log(`Error : ${err}`);
+
+}
