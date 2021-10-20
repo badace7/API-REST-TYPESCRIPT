@@ -1,22 +1,27 @@
 type Parkings = Array<Parking>; 
 
 type Parking = {
-    id: number,
-    name: string,
-    type: string,
-    city: string
+    parking_id: number,
+    parking_name: string,
+    parking_type: string,
+    parking_city: string,
+    createdAt?: Date,
+    updatedAt?: Date
 };
 
 type Reservations = Array<Reservation>;
 
 type Reservation = {
-    id: number,
-    parking: string,
-    parkingId: number,
-    city: string,
-    clientName: string,
-    vehicle: string,
-    licensePlate: string,
-    checkin: string,
-    checkout: string
+    reservation_id: number,
+    reservation_parking: string,
+    parking_id: number,
+    reservation_city: string,
+    reservation_client: string,
+    reservation_vehicle: string,
+    reservation_plate: string,
+    reservation_checkin: string,
+    reservation_checkout: string,
+    createdAt?: Date,
+    updatedAt?: Date
+
 }

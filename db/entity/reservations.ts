@@ -1,22 +1,22 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from './init';
-import Parking from './parkings';
+import Parkings from './parkings';
 
 interface ReservationAttributes{
-  id: number;
-  parking: string;
-  parkingId: number;
-  city: string;
-  clientName: string;
-  vehicle: string;
-  licensePlate: string;
-  checkin: string;
-  checkout: string;
+  reservation_id: number;
+  reservation_parking: string;
+  parking_id: number;
+  reservation_city: string;
+  reservation_client: string;
+  reservation_vehicle: string;
+  reservation_plate: string;
+  reservation_checkin: string;
+  reservation_checkout: string;
 };
 
 
 interface ReservationCreationAttributes 
-  extends Optional<ReservationAttributes, 'id'> {}
+  extends Optional<ReservationAttributes, 'reservation_id'> {}
 
 interface ReservationInstance
   extends Model<ReservationAttributes, ReservationCreationAttributes>,
@@ -27,49 +27,54 @@ interface ReservationInstance
 
 
 
-    const Reservation = sequelize.define<ReservationInstance>(
-  'Reservation',
+    const Reservations = sequelize.define<ReservationInstance>(
+  'Reservations',
   {
-    id: {
+    reservation_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.UUID,
       unique: true,
     },
-    parking: {
+    reservation_parking: {
       allowNull: false,
       type: DataTypes.TEXT,
     },
-    parkingId: {
+    parking_id: {
       allowNull: false,
       type: DataTypes.UUID,
     },
-    city: {
+    reservation_city: {
       allowNull: false,
       type: DataTypes.TEXT,
     },
-    clientName: {
+    reservation_client: {
       allowNull: false,
       type: DataTypes.TEXT,
     },
-    vehicle: {
+    reservation_vehicle: {
       allowNull: false,
       type: DataTypes.TEXT,
     },
-    licensePlate: {
+    reservation_plate: {
       allowNull: false,
       type: DataTypes.TEXT,
     },
-    checkin: {
+    reservation_checkin: {
       allowNull: false,
       type: DataTypes.TEXT,
     },
-    checkout: {
+    reservation_checkout: {
       allowNull: false,
       type: DataTypes.TEXT,
     }
   }
 );
 
-export default Reservation;
+// Reservation.belongsTo(Parking, {
+//   foreignKey: 'parkingId',
+//   as: 'parking'
+// });
+
+export default Reservations;

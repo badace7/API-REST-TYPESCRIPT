@@ -3,65 +3,70 @@ import { sequelize } from './init';
 import Reservations from './reservations';
 
 interface ParkingAttributes{
-  id: number;
-  name: string;
-  type: string;
-  city: string;
+  parking_id: number;
+  parking_name: string;
+  parking_type: string;
+  parking_city: string;
 };
 
 
 interface ParkingCreationAttributes 
-  extends Optional<ParkingAttributes, 'id'> {}
+  extends Optional<ParkingAttributes, 'parking_id'> {}
 
 interface ParkingInstance
   extends Model<ParkingAttributes, ParkingCreationAttributes>,
     ParkingAttributes {
       createdAt?: Date;
       updatedAt?: Date;
-    }
+     }
 
 
 
-    const Parking = sequelize.define<ParkingInstance>(
-  'Parking',
+
+
+
+
+
+    const Parkings = sequelize.define<ParkingInstance>(
+  'Parkings',
   {
-    id: {
+    parking_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.UUID,
       unique: true,
     },
-    name: {
+    parking_name: {
       allowNull: false,
       type: DataTypes.TEXT,
     },
-    type: {
+    parking_type: {
       allowNull: false,
       type: DataTypes.TEXT,
     },
-    city: {
+    parking_city: {
       allowNull: false,
       type: DataTypes.TEXT,
     },
   }
 );
 
-Reservations.belongsTo(Parking, {
-  foreignKey: 'parkingId',
-  as: 'parking'
+Reservations.belongsTo(Parkings, {
+  foreignKey: 'parking_id',
+  as: 'parkings'
 });
 
 
 
 
-Parking.hasMany(Reservations, {
-  sourceKey: 'id',
-  foreignKey: 'parkingId',
+Parkings.hasMany(Reservations, {
+  sourceKey: 'parking_id',
+  foreignKey: 'parking_id',
   as: 'reservations'
 });
 
 
 
 
-export default Parking;
+export default Parkings;
