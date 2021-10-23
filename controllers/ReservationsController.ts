@@ -1,19 +1,23 @@
 import { Request, Response} from 'express';
-import { reservationsList } from "../Models/ReservationsModel";
+const ReservationsModel = require('../Models/ReservationsModel');
 
 
+class ReservationsController {
 
-
-export const getReservations = async (req: Request, res: Response): Promise<void> => {
-
-    try {
-        const id: number = parseInt(req.params.id);
-        const docs: Reservations = await reservationsList(id);
-        res.status(200).json(docs);
-    } catch (err) {
-
-        console.log(err);
-
+    public getReservations = async (req: Request, res: Response): Promise<void> => {
+    
+        try {
+            const id: number = parseInt(req.params.id);
+            const docs: Reservations = await ReservationsModel.reservationsList(id);
+            res.status(200).json(docs);
+        } catch (err) {
+    
+            console.log(err);
+    
+        }
+    
     }
-
 }
+
+
+module.exports = new ReservationsController;

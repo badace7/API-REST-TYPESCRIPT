@@ -1,46 +1,40 @@
 import { Router }  from 'express';
-import { 
-    getParkings,
-    getParkingById,
-    addParking,
-    removeParkingById,
-    updateParkingById
-} from './controllers/ParkingController';
-import { getReservations } from './controllers/ReservationsController';
+const ParkingController = require('./controllers/ParkingController');
+const ReservationsController = require('./controllers/ReservationsController');
 const route = Router();
 
 // Parkings Routes
 route.get(
     '/parkings',
-    getParkings
+    ParkingController.getParkings
     );
 
 route.get(
     '/parkings/:id',
-    getParkingById
+    ParkingController.getParkingById
     );
 
 route.post(
     '/parkings',
-    addParking
+    ParkingController.addParking
     );
 
 route.delete(
     '/parkings/:id',
-    removeParkingById
+    ParkingController.removeParkingById
 );
 
 
 route.patch(
     '/parkings/:id',
-    updateParkingById
+    ParkingController.updateParkingById
 );
 
 // Reservations Routes
 
 route.get(
     '/parkings/:id/reservations',
-    getReservations
+    ReservationsController.getReservations
 );
 
 module.exports = route;

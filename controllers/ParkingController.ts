@@ -1,91 +1,92 @@
-import {
-    parkingList,
-    parkingById,
-    insertParking,
-    deleteParking,
-    updateParking
-} from '../Models/ParkingModel';
-
+const ParkingModel = require('../Models/ParkingModel');
 import { Response, Request} from 'express';
 
+class ParkingController {
 
 
-export const getParkings = async (req: Request, res: Response): Promise<void> => {
-        try {
-            const docs = await parkingList(); 
-            res.status(200).json(docs);
-        } catch (err) {
-            console.log(err);
+    public getParkings = async (req: Request, res: Response): Promise<void> => {
+            try {
+                const docs = await ParkingModel.parkingList(); 
+                res.status(200).json(docs);
+            } catch (err) {
+                console.log(err);
+            };
         };
-};
 
-export const getParkingById = async (req: Request, res: Response): Promise<void> => {
-        try {
-
-            const id: number = parseInt(req.params.id);
-            const docs: Parkings = await parkingById(id); 
-            res.status(200).json(docs);
-
-        } catch (err) {
+    public getParkingById = async (req: Request, res: Response): Promise<void> => {
+                try {
         
-            console.log(err);
+                    const id: number = parseInt(req.params.id);
+                    const docs: Parkings = await ParkingModel.parkingById(id); 
+                    res.status(200).json(docs);
+        
+                } catch (err) {
+                
+                    console.log(err);
+                
+                }
+        };
+        
+    public addParking = async (req: Request, res: Response): Promise<void> => {
+        
+                try {
+        
+                    const body: Parking = req.body;
+                    const docs: void = await ParkingModel.insertParking(body);
+                    res.status(200).json(docs);
+        
+                } catch (err) {
+        
+                    console.log(err);
+                }
         
         }
-};
-
-export const addParking = async (req: Request, res: Response): Promise<void> => {
-
-        try {
-
-            const body: Parking = req.body;
-            const docs: void = await insertParking(body);
-            res.status(200).json(docs);
-
-        } catch (err) {
-
-            console.log(err);
+        
+    public removeParkingById = async (req: Request, res: Response): Promise<void> => {
+        
+                try {
+        
+                    const id: number = parseInt(req.params.id);
+                    const docs: void = await ParkingModel.deleteParking(id);
+                    res.status(200).json(docs);
+        
+                } catch (err) {
+                    
+                    console.log(err);
+        
+                }
+        
         }
-
-}
-
-export const removeParkingById = async (req: Request, res: Response): Promise<void> => {
-
-        try {
-
-            const id: number = parseInt(req.params.id);
-            const docs: void = await deleteParking(id);
-            res.status(200).json(docs);
-
-        } catch (err) {
-            
-            console.log(err);
-
-        }
-
-}
-
+        
+        
+        
+    public updateParkingById = async (req: Request, res: Response): Promise<void> => {
+        
+                try {
+        
+                    const id: number = parseInt(req.params.id); 
+                    const body: Parking = req.body;
+                    const docs: void = await ParkingModel.updateParking(body, id);
+                    res.status(200).json(docs);
+        
+                } catch (err) {
+        
+                    console.log(err);
+        
+                }
 
 
-export const updateParkingById = async (req: Request, res: Response): Promise<void> => {
 
-        try {
+    }
 
-            const id: number = parseInt(req.params.id); 
-            const body: Parking = req.body;
-            const docs: void = await updateParking(body, id);
-            res.status(200).json(docs);
 
-        } catch (err) {
 
-            console.log(err);
-
-        }
 
 
 }
 
  
-
+module.exports = new ParkingController;
 
 
 
